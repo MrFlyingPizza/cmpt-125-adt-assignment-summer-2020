@@ -4,10 +4,11 @@ Your task for this assignment is to create two classes that implement the
 `Stack` class in [Stack.h](Stack.h). **Important**: don't change
 [Stack.h](Stack.h) in any way!
 
-1. One of your implementations should be called `Vec_stack`, and it should be
-   implemented using a `vector<string>`. Put that class into the file
-   [adt_vec.cpp](adt_vec.cpp). `Vec_stack` should have a default constructor
-   that makes an empty stack.
+1. Call one of your implementations classes `Vec_stack`, and implement using a
+   `vector<string>`. [adt_vec.cpp](adt_vec.cpp) gives a starting template.
+   Don't `#include` any other files.
+   
+   Make sure `Vec_stack` default constructor that makes an empty stack.
 
    In the `main` function, add automated testing that tests *every* method in
    `Vec_stack`. Do enough testing to ensure that your implementation is
@@ -15,12 +16,13 @@ Your task for this assignment is to create two classes that implement the
 
    Source code readability matters! We want to see perfect indentation and use
    of whitespace, sensible names for variables, and good use of appropriate
-   C++ features.
+   C++ features. 
 
-2. Your other implementation should be called `List_stack`, and it should be
-   implemented using a linked list that you create by hand. Put that class
-   into the file [adt_list.cpp](adt_list.cpp). `List_stack` should have a
-   default constructor that makes an empty stack.
+2. Call your other implementation `List_stack`, and implement it using a
+   linked list that you create by hand. [adt_list.cpp](adt_list.cpp) gives a
+   starting template. Don't `#include` any other files.
+
+   `List_stack` should have a default constructor that makes an empty stack.
 
    In the `main` function, add automated testing that tests *every* method in
    `List_stack`. Do enough testing to ensure that your implementation is
