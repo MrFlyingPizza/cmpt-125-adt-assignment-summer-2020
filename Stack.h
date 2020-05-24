@@ -7,7 +7,7 @@ using namespace std;
 
 class Stack {
 public:
-    virtual ~Stack() {}  // always include a virtual destructor in a base class
+    virtual ~Stack() { }  // always include a virtual destructor in a base class
 
     // Pre-condition:
     //    none

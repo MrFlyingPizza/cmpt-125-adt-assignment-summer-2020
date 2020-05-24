@@ -13,6 +13,10 @@ Your task for this assignment is to create two classes that implement the
    `Vec_stack`. Do enough testing to ensure that your implementation is
    correct.
 
+   Source code readability matters! We want to see perfect indentation and use
+   of whitespace, sensible names for variables, and good use of appropriate
+   C++ features.
+
 2. Your other implementation should be called `List_stack`, and it should be
    implemented using a linked list that you create by hand. Put that class
    into the file [adt_list.cpp](adt_list.cpp). `List_stack` should have a
@@ -21,6 +25,10 @@ Your task for this assignment is to create two classes that implement the
    In the `main` function, add automated testing that tests *every* method in
    `List_stack`. Do enough testing to ensure that your implementation is
    correct.
+
+   Source code readability matters! We want to see perfect indentation and use
+   of whitespace, sensible names for variables, and good use of appropriate
+   C++ features.
 
 3. Suppose you want to create function that tests if two stacks are the same
    (i.e. have the elements in the same order) using a function with this
