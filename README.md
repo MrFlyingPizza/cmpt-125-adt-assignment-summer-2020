@@ -48,7 +48,7 @@ Your task for this assignment is to create two classes that implement the
    efficiently.
 
    Write your answer for this question in a text file named
-   [equality.txt](equality.txt).
+   [equality.txt](equality.txt). Spelling, grammar, and formatting matter!
 
 
 ### What to Submit
