@@ -61,5 +61,5 @@ archive named `adt.zip`. Include just those two files, and nothing else! Do
 
 Submit `adt.zip` on Canvas when you're done.
 
-Note that if your program does not compile, you will get 0 for the entire
-assignment.
+Note that if your program does not compile with the course
+[makefile](makefile), you will get 0 for the entire assignment.
