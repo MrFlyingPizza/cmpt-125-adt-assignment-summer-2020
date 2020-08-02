@@ -206,7 +206,7 @@ int main() {
     vector<string> popped = stack.pop(vals);
     for (int i = vals-1; i >= 0; i--)
     {
-        cout << popped[i] << " " << rand_strings[i] << "\n";
+        cout << popped[i] << " " << rand_strings[vals-i-1] << "\n";
         if (popped[i] != rand_strings[vals-i-1])
         {
             cout << "Failed push and pop\n";

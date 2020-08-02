@@ -16,7 +16,7 @@ private:
     {
     private:
         string data;
-        Node *next, *last;
+        Node *last, *next;
 
     public:
         Node(string value)
@@ -67,6 +67,9 @@ public:
     List_stack()
     : head(nullptr), tail(nullptr), count(0)
     { }
+
+    // Destructor
+    ~List_stack();
 
     // Pre-condition:
     //    none
@@ -123,6 +126,12 @@ public:
 
 }; // class List_stack
 
+// Destructor definition
+List_stack::~List_stack()
+{
+    pop_all();
+}
+
 bool List_stack::is_empty() const
 {
     return count == 0;
@@ -145,10 +154,14 @@ void List_stack::push(const string& x)
 {
     Node *node = new Node(x);
     if (count == 0)
+    {
         head = node;
+    }
     else
+    {
         node->set_previous(tail);
         tail->set_next(node);
+    }
     tail = node;
     count++;
 }
@@ -174,7 +187,7 @@ void List_stack::push_new(const string& s)
     Node* node = head;
     while (node != nullptr && node->get_data() != s)
         node = node->get_next();
-    if (node = nullptr)
+    if (node == nullptr)
         push(s);
 }
 
@@ -218,6 +231,8 @@ vector<string> List_stack::pop(int n)
     
     for (int i = 0; i < n; i++)
         popped.push_back(pop());
+    
+    return popped;
 }
 
 
@@ -236,7 +251,55 @@ string List_stack::peek() const
 
 
 int main() {
-    // ... put testing for List_stack here ...
+    List_stack stack = List_stack();
+
+    vector<string> rand_strings = {};
+
+    unsigned int vals = 10;
+
+    cout << "Pushing " << vals << " values\n";
+    for (unsigned int i = 0; i < vals; i++)
+    {
+        rand_strings.push_back(to_string( rand()%2000 ));
+        cout << rand_strings[i] + "\n";
+        stack.push(rand_strings[i]);
+    }
+
+    cout << "Popping " << vals << " values\n";
+    for (int i = vals - 1; i >= 0; i--)
+    {
+        if (stack.pop() != rand_strings[i])
+        {
+            cout << "Failed push and pop";
+            return 1;
+        }
+    }
+
+    cout << "Passed first push and pop\n";
+
+    cout << "Bulk pushing " << vals << " values\n";
+    for (unsigned int i = 0; i < vals; i++)
+    {
+        rand_strings[i] = to_string(rand() % 2000);
+    }
+    stack.push(rand_strings);
+
+    cout << "Bulk Popping " << vals << " values\n";
+    vector<string> popped = stack.pop(vals);
+    for (int i = vals-1; i >= 0; i--)
+    {
+        cout << popped[i] << " " << rand_strings[vals-i-1] << "\n";
+        if (popped[i] != rand_strings[vals-i-1])
+        {
+            cout << "Failed push and pop\n";
+
+            for (unsigned int i = 0; i < vals; i++)
+                cout << "expected: " << rand_strings[vals-i-1] << " stored: " << popped[i] << "\n";
+
+            return 1;
+        }
+
+    }
 
     cout << "All List_stack tests passed\n";
 } // main
