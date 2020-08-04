@@ -175,17 +175,20 @@ int main() {
 
     unsigned int vals = 10;
 
+    // test push vals amounts of values to stack
     cout << "Pushing " << vals << " values\n";
     for (unsigned int i = 0; i < vals; i++)
     {
-        rand_strings.push_back(to_string( rand()%2000 ));
+        rand_strings.push_back(to_string( rand()%2000 )); // generate random strings of numbers
         cout << rand_strings[i] + "\n";
         stack.push(rand_strings[i]);
     }
 
+    // test pop vals amounts of items from the stack
     cout << "Popping " << vals << " values\n";
     for (int i = vals - 1; i >= 0; i--)
     {
+        // verify the popped values
         if (stack.pop() != rand_strings[i])
         {
             cout << "Failed push and pop";
@@ -195,19 +198,22 @@ int main() {
 
     cout << "Passed first push and pop\n";
 
+    // push vals amounts of values altogether
     cout << "Bulk pushing " << vals << " values\n";
-    for (unsigned int i = 0; i < vals; i++)
+    for (unsigned int i = 0; i < vals; i++) // generate random strings of numbers
     {
         rand_strings[i] = to_string(rand() % 2000);
     }
     stack.push(rand_strings);
 
+    // pop vals amounts of values altogether
     cout << "Bulk Popping " << vals << " values\n";
     vector<string> popped = stack.pop(vals);
     for (int i = vals-1; i >= 0; i--)
     {
+        // verify the popped values
         cout << popped[i] << " " << rand_strings[vals-i-1] << "\n";
-        if (popped[i] != rand_strings[vals-i-1])
+        if (popped[i] != rand_strings[vals-i-1]) // prints the values if they arent verified
         {
             cout << "Failed push and pop\n";
 
