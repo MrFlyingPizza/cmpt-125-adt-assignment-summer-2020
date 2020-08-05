@@ -119,7 +119,7 @@ void Vec_stack::push_new(const string& s)
         advance(iter, 1);
 
     if (iter != strings.end())
-        strings.push_back(s);
+        push(s);
 }
 
 // Pre-condition:
@@ -224,6 +224,8 @@ int main() {
         }
 
     }
+
+    // get vals
 
     cout << "All Vec_stack tests passed\n";
 } // main
