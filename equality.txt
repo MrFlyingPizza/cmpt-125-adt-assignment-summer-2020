@@ -1,3 +1,100 @@
 Answer to Question 3
 ====================
 
+No, we cannot implement operator== without changing its parameters.
+The only way to obtain data for comparison from the object references
+is by popping all the values from the two stacks, compare them, then
+push them back onto the stacks; however, the Stack object references
+are constant, meaning that the compiler will prevent us from using
+methods like "pop" and "push" because they will modify the objects
+while they are being used to read data from the stacks. Consequently,
+we need to supply the abstract class Stack with a constant method,
+which will let us to read the data of the Stack objects without
+modifying them in the process. Since Stack can be implemented in a
+variety of ways, this get_data() method will also be virtual and
+mandatory to be overriden as it is implementation-dependant.
+
+
+// Stack.h
+
+#include <string>
+#include <vector>
+
+using namespace std;
+
+// equality function
+bool operator==(const Stack& a, const Stack& b)
+{
+    return a.get_data() == b.get_data();
+}
+
+class Stack {
+public:
+    virtual ~Stack() { }  // always include a virtual destructor in a base class
+
+    /* THE ADDED CONST METHOD TO READ DATA FROM THE STACK
+       WITHOUT MODIFYING THE STACK */
+    virtual vector<string> get_data() const = 0;
+
+    // Pre-condition:
+    //    none
+    // Post-condition:
+    //    returns true if the stack is empty, and false otherwise
+    virtual bool is_empty() const = 0;
+
+    // Pre-condition:
+    //    none
+    // Post-condition:
+    //    returns the number of elements in this stack
+    virtual int size() const = 0;
+
+    // Pre-condition:
+    //    none
+    // Post-condition:
+    //    puts x on the top of the stack
+    virtual void push(const string& x) = 0;
+
+    // Pre-condition:
+    //    none
+    // Post-condition:
+    //    pushes all the elements of v onto the stack; first v[0] is pushed,
+    //    then v[1], etc.
+    virtual void push(const vector<string>& v) = 0;
+
+    // Pre-condition:
+    //    none
+    // Post-condition:
+    //    if x occurs anywhere on the stack, then does nothing; otherwise,
+    //    pushes x onto the stack
+    virtual void push_new(const string& s) = 0;
+
+    // Pre-condition:
+    //    !is_empty()
+    // Post-condition: 
+    //    removes and returns the top element of the stack
+    virtual string pop() = 0;
+
+    // Pre-condition:
+    //    none
+    // Post-condition: 
+    //    if n <= 0, an empty vector is returned; otherwise, pops the first n items 
+    //    off the stack and returns them in a vector such that the first item of the vector
+    //    is the top of the stack, the second item of the vector is the second item of the
+    ///   stack, and so on; if n > size(), then all items are popped and returned
+    virtual vector<string> pop(int n) = 0;
+
+    // Pre-condition:
+    //    none
+    // Post-condition: 
+    //    pops all elements from the stack
+    virtual void pop_all() {
+        while (!is_empty()) pop();
+    }
+
+    // Pre-condition:
+    //    !is_empty()
+    // Post-condition: 
+    //    returns a copy of the top element of the stack (without removing it)
+    virtual string peek() const = 0;
+
+}; // class Stack
