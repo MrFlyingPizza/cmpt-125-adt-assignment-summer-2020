@@ -167,7 +167,7 @@ string Vec_stack::peek() const
 {
     string s = "";
     if (!is_empty())
-        strings.back();
+        s = strings.back();
     return s;
 }
 
@@ -221,6 +221,13 @@ int main() {
     if (stack.size() != vals)
     {
         cout << "Size method returned wrong size.\n";
+        return 1;
+    }
+
+    // check peek
+    if (stack.peek() != rand_strings[rand_strings.size()-1])
+    {
+        cout << "peek method returned wrong value.\n";
         return 1;
     }
 

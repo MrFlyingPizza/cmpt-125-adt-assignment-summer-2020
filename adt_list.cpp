@@ -303,6 +303,13 @@ int main() {
         return 1;
     }
 
+    // check peek
+    if (stack.peek() != rand_strings[rand_strings.size()-1])
+    {
+        cout << "peek method returned wrong value.\n";
+        return 1;
+    }
+
     // pop vals amounts of values altogether
     cout << "Bulk Popping " << vals << " values\n";
     vector<string> popped = stack.pop(vals);
