@@ -114,11 +114,14 @@ void Vec_stack::push(const vector<string>& v)
 //    pushes x onto the stack
 void Vec_stack::push_new(const string& s)
 {
-    vector<string>::iterator iter = strings.begin();
-    while (iter != strings.end() && *iter != s)
-        advance(iter, 1);
-
-    if (iter != strings.end())
+    bool found = false;
+    for (size_t i = 0; i < size() && !found; i++)
+    {
+        if (strings[i] == s)
+            found = true;
+    }
+    
+    if (!found)
         push(s);
 }
 
@@ -173,7 +176,7 @@ int main() {
 
     vector<string> rand_strings = {};
 
-    unsigned int vals = 10;
+    unsigned int vals = 20;
 
     // test push vals amounts of values to stack
     cout << "Pushing " << vals << " values\n";
@@ -183,6 +186,14 @@ int main() {
         cout << rand_strings[i] + "\n";
         stack.push(rand_strings[i]);
     }
+
+    // check size
+    if (stack.size() != vals)
+    {
+        cout << "Size method returned wrong size.\n";
+        return 1;
+    }
+    
 
     // test pop vals amounts of items from the stack
     cout << "Popping " << vals << " values\n";
@@ -206,6 +217,13 @@ int main() {
     }
     stack.push(rand_strings);
 
+    // check size
+    if (stack.size() != vals)
+    {
+        cout << "Size method returned wrong size.\n";
+        return 1;
+    }
+
     // pop vals amounts of values altogether
     cout << "Bulk Popping " << vals << " values\n";
     vector<string> popped = stack.pop(vals);
@@ -225,7 +243,89 @@ int main() {
 
     }
 
-    // get vals
+    // push new test
+
+    stack.pop_all();
+
+    unsigned int amount_vals = (rand() % 10) + 3;
+    cout << "generating " << amount_vals << " unique values.\n";
+    rand_strings.clear();
+    for (unsigned int i = 0; i < amount_vals; i++)
+    {
+        bool pushed = false;
+        while (!pushed) // ensure generated values are unique
+        {
+            bool exists = false;
+            string rand_string = to_string(rand() % 2000); // generate random number string
+            for (unsigned int j = 0; j < rand_strings.size() && !exists; j++)
+            {
+                if (rand_strings[j] == rand_string)
+                {
+                    exists = true;
+                }
+                
+            }
+
+            if (!exists)
+            {
+                rand_strings.push_back(rand_string);
+                cout << "pushed unique value: " + rand_string + "\n";
+                pushed = true;
+            }
+
+        }
+
+    }
+
+    cout << "generated " << rand_strings.size() << " values.\n";
+
+    if (rand_strings.size() != amount_vals) // check for the number of generated values to be correct
+    {
+        cout << "not enough values were generated.\n";
+        return 1;
+    }
+    
+    // Push vals to expected and stack
+    vector<string> pushed_vals;
+    string rand_val;
+    cout << "Pushing " << vals << " random values selected from unique generated values\n";
+    for (unsigned int i = 0; i < vals; i++)
+    {
+        // push into stack
+        rand_val = rand_strings[rand() % rand_strings.size()];
+        cout << "stack and expected push_new: " << rand_val << "\n";
+        stack.push_new(rand_val);
+
+        // push into expected vector
+        vector<string>::iterator iter = pushed_vals.begin();
+        if (pushed_vals.size() > 0)
+        {
+            while (*iter != rand_val && iter != pushed_vals.end())
+                advance(iter, 1);
+        }
+        
+        if (iter == pushed_vals.end())
+            pushed_vals.push_back(rand_val);
+        
+    }
+
+    cout << "size of expected: " << pushed_vals.size() << "\n" << "expected values.\n";
+    for (string c : pushed_vals)
+        cout << c + "\n";
+
+    cout << "size of stack: " << stack.size() << "\n";
+    
+    for (int i = pushed_vals.size() - 1; i >= 0 ; i--)
+    {
+        string popped_val = stack.pop();
+        cout << "expected: " << pushed_vals[i] << " popped: " << popped_val << "\n";
+        if (pushed_vals[i] != popped_val)
+        {
+            cout << "push new failed. vals dont match\n";
+        }
+        pushed_vals.pop_back();
+    }
+    
 
     cout << "All Vec_stack tests passed\n";
 } // main
